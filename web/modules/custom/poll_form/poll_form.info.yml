@@ -1,0 +1,5 @@
+name: 'Custom poll form'
+type: module
+description: 'Custom poll form'
+core: 8.x
+package: 'Custom'

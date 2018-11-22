@@ -1,0 +1,8 @@
+         
+poll_form.pollForm:
+    path: '/poll'
+    defaults:
+        _controller: '\Drupal\poll_form\Controller\PollFormController::pollForm'
+    requirements:
+        _permission: 'access content'
+

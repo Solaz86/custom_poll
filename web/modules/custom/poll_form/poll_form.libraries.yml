@@ -1,0 +1,4 @@
+  poll_form:
+  version: VERSION
+  js:
+    js/poll_form.js: {}
