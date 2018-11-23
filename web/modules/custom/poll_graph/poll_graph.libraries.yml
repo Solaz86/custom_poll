@@ -1,0 +1,8 @@
+poll_graph.library:
+  js:
+    js/poll_graph.js: {}
+  css:
+    theme:
+      css/poll_graph.css: {}
+  dependencies:
+  - core/drupalSettings

@@ -1,0 +1,6 @@
+name: Poll Graph
+description: Poll Graph
+type: module
+package: 'Custom'
+core: 8.x
+

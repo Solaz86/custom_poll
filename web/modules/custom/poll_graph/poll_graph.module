@@ -1,0 +1,10 @@
+<?php
+
+function poll_graph_theme() {
+  return [
+    'poll_graph_page' => [
+      'template' => 'poll-graph',
+      'variables' => ['title' => NULL],
+    ]
+  ];
+}

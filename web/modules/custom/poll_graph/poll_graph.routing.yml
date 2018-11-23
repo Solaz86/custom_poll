@@ -1,0 +1,6 @@
+poll_graph:
+  path: '/poll-graph'
+  defaults:
+    _controller: '\Drupal\poll_graph\Controller\PollgraphController::getPollgraph'
+  requirements:
+    _permission: 'access content'
