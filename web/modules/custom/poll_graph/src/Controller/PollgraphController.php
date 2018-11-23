@@ -26,7 +26,7 @@ class PollgraphController extends ControllerBase {
 
 
         $build['myelement']['#attached']['library'][] = 'poll_graph/poll_graph.library';
-        $build['myelement']['#attached']['poll_graph']['stats'] = $notas;
+//        $build['myelement']['#attached']['drupalSettings']['poll_graph']['stats'] = $notas;
     return $build;
   }
 }
