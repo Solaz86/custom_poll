@@ -63,7 +63,7 @@ class PollgraphController extends ControllerBase {
     $user->setPassword('password');
     $user->enforceIsNew();
     $user->setEmail('email');
-    $user->setUsername('user_name');//This username must be unique and accept only a-Z,0-9, - _ @ .
+    $user->setUsername('user_name1');//This username must be unique and accept only a-Z,0-9, - _ @ .
 
 //Optional settings
     $user->set("init", 'email');
