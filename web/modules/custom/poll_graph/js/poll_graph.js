@@ -1,10 +1,26 @@
 
 zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
 ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];
-var tecnologia = drupalSettings.poll_graph.stats.tecnologia;
-var innovacion = drupalSettings.poll_graph.stats.innovacion;
-var habilidades = drupalSettings.poll_graph.stats.habilidades;
-var promedio = drupalSettings.poll_graph.stats.;
+if (drupalSettings.poll_graph.stats.tecnologia > 0){
+  var tecnologia = drupalSettings.poll_graph.stats.tecnologia;
+} else {
+  var tecnologia = 1;
+}
+if (drupalSettings.poll_graph.stats.innovacion > 0){
+  var innovacion = drupalSettings.poll_graph.stats.innovacion;
+} else {
+  var innovacion = 1;
+}
+if (drupalSettings.poll_graph.stats.habilidades > 0){
+  var habilidades = drupalSettings.poll_graph.stats.habilidades;
+} else {
+  var habilidades = 1;
+}
+if (drupalSettings.poll_graph.stats.promedio > 0){
+  var promedio = drupalSettings.poll_graph.stats.promedio;
+} else {
+  var promedio = 1;
+}
 // alert(tecnologia);
 
     var myConfig = {
@@ -49,7 +65,7 @@ var promedio = drupalSettings.poll_graph.stats.;
       },
       series : [
         {
-          values : [promedio, promedio, promedio],
+          values : [10, promedio, promedio],
           lineColor : 'red',
           backgroundColor : 'white'
         },

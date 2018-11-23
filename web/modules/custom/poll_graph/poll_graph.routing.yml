@@ -4,3 +4,10 @@ poll_graph:
     _controller: '\Drupal\poll_graph\Controller\PollgraphController::getPollgraph'
   requirements:
     _permission: 'access content'
+
+crear_usuario:
+  path: '/crear-usuario'
+  defaults:
+    _controller: '\Drupal\poll_graph\Controller\PollgraphController::createUser'
+  requirements:
+    _permission: 'access content'
