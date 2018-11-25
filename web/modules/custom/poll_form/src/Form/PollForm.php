@@ -30,7 +30,7 @@ class PollForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state, $values = array(), $topics_order = array(), $poll_nid = NULL) {
     if (!empty($values) && !empty($topics_order)) {
 
-      //unset($_SESSION['poll']);
+//      unset($_SESSION['poll']);
       /*echo 'POLL';
       echo '<pre>';
       print_r($_SESSION);
@@ -104,12 +104,12 @@ class PollForm extends FormBase {
           $form['complete_name'] = array(
             '#type' => 'textfield', 
             '#title' => $this->t('Name'), 
-            '#size' => 60, 
+            '#size' => 60,
             '#maxlength' => 120, 
             '#required' => TRUE,
           );
           $form['mail'] = array(
-            '#type' => 'textfield', 
+            '#type' => 'email', 
             '#title' => $this->t('Mail'), 
             '#size' => 60, 
             '#maxlength' => 120, 
@@ -293,6 +293,7 @@ class PollForm extends FormBase {
         'field_question_result' => $parag_quest_resul_ids
       ]);
       $pool_results->save();
+//      Redireccion a la grafica de estadisticas
       $response = new RedirectResponse('/poll-graph');
       $response->send();
 

@@ -1,13 +1,13 @@
 <?php
 namespace Drupal\poll_form\Controller;
- 
+
 use Drupal;
 use Drupal\node\Entity\Node;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\paragraphs\Entity\Paragraph;
- 
+
 class PollFormController extends ControllerBase {
-   
+
   public function pollForm() {
     /*$prgh = \Drupal\paragraphs\Entity\Paragraph::load(5);
     $lang = \Drupal::languageManager()->getCurrentLanguage()->getId();
@@ -42,14 +42,14 @@ class PollFormController extends ControllerBase {
       print_r($topics_order);
       echo '</pre>';*/
 
-      if (!empty($values) && isset($values[$topics_order[0]]) && 
+      if (!empty($values) && isset($values[$topics_order[0]]) &&
         isset($values[$topics_order[1]]) && isset($values[$topics_order[2]]) ) {
         // Call form
         $form = $this->formBuilder()->getForm('Drupal\poll_form\Form\PollForm', $values, $topics_order, $poll_nid);
       }
     }
 
-       
+
     // Le pasamos el formulario y demás a la vista (tema configurado en el module)
 
     return [
@@ -92,12 +92,12 @@ class PollFormController extends ControllerBase {
         if ($prgh->hasTranslation($lang)) {
           $prgh = $prgh->getTranslation($lang);
         }
-        
+
         if (!empty($prgh)) {
           $type_qustn = $prgh->type->getValue();
           switch ($type_qustn[0]['target_id']) {
             case 'question':
-              $label_qustn = $prgh->field_tittle->getValue()[0]['value'];
+              $label_qustn = $prgh->field_title->getValue()[0]['value'];
               $topic_tid = $prgh->field_topic->getValue()[0]['target_id'];
               //$values[$topic_tid][]['label'] = $label_qustn;
 
@@ -108,34 +108,34 @@ class PollFormController extends ControllerBase {
               echo '<pre>';
               var_dump($anws);
               echo '</pre>';*/
-              
+
               if (!empty($anws)) {
-                
+
                 foreach ($anws as $key => $anw) {
                   $anws_load = \Drupal\paragraphs\Entity\Paragraph::load($anw['target_id']);
                   if ($anws_load->hasTranslation($lang)) {
                     $anws_load = $anws_load->getTranslation($lang);
-                  }    
+                  }
 
                   $punctuation = $anws_load->field_option_punctuation->getValue()[0]['value'];
                   $response = $anws_load->field_response_option->getValue()[0]['value'];
                   $info_anws[] = array(
                     'punt' => $punctuation,
-                    'resp' => $response                    
+                    'resp' => $response
                   );
                 }
                 $values[$topic_tid][] = array(
                   'label' => $label_qustn,
-                  'answs' => $info_anws                   
+                  'answs' => $info_anws
                 );
-                
+
               }
               break;
-            
+
             case 'open_question':
               break;
           }
-        } 
+        }
       }
     }
     return $values;
@@ -148,6 +148,7 @@ class PollFormController extends ControllerBase {
         case 'en':
         case 'es':
           $topic_order = array();
+//          @TODO restablecer despues de ajustar traducciones
 //          $topic_order[0] = 5;
 //          $topic_order[1] = 4;
 //          $topic_order[2] = 7;
@@ -155,15 +156,15 @@ class PollFormController extends ControllerBase {
           $topic_order[1] = 2;
           $topic_order[2] = 3;
           //break;
-        
-        
+
+
           # code...
           break;
       }
       return $topic_order;
     }
   }
-   
+
 }
- 
+
 ?>
