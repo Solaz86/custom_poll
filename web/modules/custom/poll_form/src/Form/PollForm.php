@@ -5,11 +5,14 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Link;
+use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\Core\Url;
 use \Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 use \Drupal\file\Entity\File;
- 
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
+
  
 class PollForm extends FormBase {
  
@@ -290,6 +293,8 @@ class PollForm extends FormBase {
         'field_question_result' => $parag_quest_resul_ids
       ]);
       $pool_results->save();
+      $response = new RedirectResponse('/poll-graph');
+      $response->send();
 
       if (isset($_SESSION['poll']) && !empty($_SESSION['poll'])) {
         $_SESSION['graph'] = $_SESSION['poll'];
@@ -302,6 +307,5 @@ class PollForm extends FormBase {
     $form_state->setStorage($storage);
     $form_state->setRebuild();
 
-  
   }
 }

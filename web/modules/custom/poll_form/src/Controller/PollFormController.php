@@ -27,6 +27,7 @@ class PollFormController extends ControllerBase {
 
     $poll_nid = $this->_poll_form_get_activate_poll();
 
+    $form = array();
     if ($poll_nid && is_numeric($poll_nid)) {
       $values = $this::_poll_form_get_paragraph_values($poll_nid);
       $topics_order = $this::_poll_form_get_order_topics();
@@ -50,6 +51,7 @@ class PollFormController extends ControllerBase {
 
        
     // Le pasamos el formulario y demás a la vista (tema configurado en el module)
+
     return [
       '#theme' => 'pollForm',
       //'#title' => $this->t('Poll'),
@@ -146,9 +148,12 @@ class PollFormController extends ControllerBase {
         case 'en':
         case 'es':
           $topic_order = array();
-          $topic_order[0] = 5;
-          $topic_order[1] = 4;
-          $topic_order[2] = 7;
+//          $topic_order[0] = 5;
+//          $topic_order[1] = 4;
+//          $topic_order[2] = 7;
+          $topic_order[0] = 1;
+          $topic_order[1] = 2;
+          $topic_order[2] = 3;
           //break;
         
         
