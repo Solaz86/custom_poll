@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * @return array
+ */
 function poll_graph_theme() {
   return [
     'poll_graph_page' => [

@@ -5,4 +5,8 @@ poll_form.pollForm:
         _controller: '\Drupal\poll_form\Controller\PollFormController::pollForm'
     requirements:
         _permission: 'access content'
+    js:
+      js/poll_form.js: {}
+    dependencies:
+      - core/jquery
 

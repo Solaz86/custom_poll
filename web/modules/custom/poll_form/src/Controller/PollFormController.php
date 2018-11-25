@@ -9,22 +9,42 @@ use Drupal\paragraphs\Entity\Paragraph;
 class PollFormController extends ControllerBase {
    
   public function pollForm() {
+    /*$prgh = \Drupal\paragraphs\Entity\Paragraph::load(5);
+    $lang = \Drupal::languageManager()->getCurrentLanguage()->getId();
+    /*if ($lang != 'en') {
+      $prgh = $prgh->getTranslation($lang);
+    }
+    //$ts_prgh = $prgh->getTranslation('es');
+    echo 'HAS PRG';
+    echo '<pre>';
+    print_r($prgh->hasTranslation('es'));
+    echo 'Title';
+    //print_r($prgh->field_tittle->getValue()[0]['value']);
+    echo '</pre>';*/
+
+
+
+
     $poll_nid = $this->_poll_form_get_activate_poll();
+
     if ($poll_nid && is_numeric($poll_nid)) {
       $values = $this::_poll_form_get_paragraph_values($poll_nid);
       $topics_order = $this::_poll_form_get_order_topics();
       /*echo '<pre>';
+      echo 'TOPICS';
       print_r($values);
       echo '</pre>';
 
+
       echo '<pre>';
+      echo 'TOPICS ORDER';
       print_r($topics_order);
       echo '</pre>';*/
+
       if (!empty($values) && isset($values[$topics_order[0]]) && 
         isset($values[$topics_order[1]]) && isset($values[$topics_order[2]]) ) {
         // Call form
-        $form = $this->formBuilder()->getForm('Drupal\poll_form\Form\PollForm', $values, $topics_order);
-
+        $form = $this->formBuilder()->getForm('Drupal\poll_form\Form\PollForm', $values, $topics_order, $poll_nid);
       }
     }
 
@@ -32,7 +52,7 @@ class PollFormController extends ControllerBase {
     // Le pasamos el formulario y demás a la vista (tema configurado en el module)
     return [
       '#theme' => 'pollForm',
-      '#title' => $this->t('Poll'),
+      //'#title' => $this->t('Poll'),
       //'#form' => 'hola',
       '#form' => $form
     ];
@@ -57,11 +77,19 @@ class PollFormController extends ControllerBase {
   public function _poll_form_get_paragraph_values($poll_nid) {
     $poll = \Drupal\node\Entity\Node::load($poll_nid);
     $values = array();
+    $lang = \Drupal::languageManager()->getCurrentLanguage()->getId();
+
+
     if (!empty($poll)) {
       $paragraphs = $poll->field_question->getValue();
+
       // Loop through the result set.
       foreach ($paragraphs as $element) {
         $prgh = \Drupal\paragraphs\Entity\Paragraph::load($element['target_id']);
+
+        if ($prgh->hasTranslation($lang)) {
+          $prgh = $prgh->getTranslation($lang);
+        }
         
         if (!empty($prgh)) {
           $type_qustn = $prgh->type->getValue();
@@ -73,21 +101,26 @@ class PollFormController extends ControllerBase {
 
               $anws = $prgh->field_option->getValue();
               $info_anws = array();
+
+              /*echo 'AWS';
+              echo '<pre>';
+              var_dump($anws);
+              echo '</pre>';*/
               
               if (!empty($anws)) {
                 
                 foreach ($anws as $key => $anw) {
                   $anws_load = \Drupal\paragraphs\Entity\Paragraph::load($anw['target_id']);
+                  if ($anws_load->hasTranslation($lang)) {
+                    $anws_load = $anws_load->getTranslation($lang);
+                  }    
+
                   $punctuation = $anws_load->field_option_punctuation->getValue()[0]['value'];
                   $response = $anws_load->field_response_option->getValue()[0]['value'];
                   $info_anws[] = array(
                     'punt' => $punctuation,
                     'resp' => $response                    
                   );
-                  /*$values[$topic_tid][]['answs'][] = array(
-                    'punt' => $punctuation,
-                    'resp' =>$response                    
-                  );*/
                 }
                 $values[$topic_tid][] = array(
                   'label' => $label_qustn,
@@ -111,13 +144,14 @@ class PollFormController extends ControllerBase {
     if (!empty($lang)) {
       switch ($lang) {
         case 'en':
-          $topic_order = array();
-          $topic_order[0] = 1;
-          $topic_order[1] = 2;
-          $topic_order[2] = 3;
-          break;
-        
         case 'es':
+          $topic_order = array();
+          $topic_order[0] = 5;
+          $topic_order[1] = 4;
+          $topic_order[2] = 7;
+          //break;
+        
+        
           # code...
           break;
       }
